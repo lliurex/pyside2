@@ -1,8 +1,8 @@
-pyside2 (5.13.1-0neon1) UNRELEASED; urgency=medium
+pyside2 (5.13.1-0) bionic; urgency=medium
 
-  * New upstream release
+  * Bionic packaging
 
- -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 07 Oct 2019 12:34:22 +0200
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 07 Oct 2019 12:37:29 +0200
 
 pyside2 (5.11.2-3build2) eoan; urgency=medium
 
