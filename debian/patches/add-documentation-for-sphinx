@@ -1,0 +1,1605 @@
+Description: Old documentation
+ Old documentation 
+ .
+ pyside2 (5.13.1-0) bionic; urgency=medium
+ .
+   * Bionic packaging
+Author: M.Angel Juan <m.angel.juan@gmail.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2019-10-08
+
+--- /dev/null
++++ pyside2-5.13.1/docs/Makefile
+@@ -0,0 +1,177 @@
++# Makefile for Sphinx documentation
++#
++
++# You can set these variables from the command line.
++SPHINXOPTS    =
++SPHINXBUILD   = sphinx-build
++PAPER         =
++BUILDDIR      = _build
++
++# User-friendly check for sphinx-build
++ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
++$(error The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx installed, then set the SPHINXBUILD environment variable to point to the full path of the '$(SPHINXBUILD)' executable. Alternatively you can add the directory with the executable to your PATH. If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
++endif
++
++# Internal variables.
++PAPEROPT_a4     = -D latex_paper_size=a4
++PAPEROPT_letter = -D latex_paper_size=letter
++ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
++# the i18n builder cannot share the environment and doctrees with the others
++I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
++
++.PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext
++
++help:
++	@echo "Please use \`make <target>' where <target> is one of"
++	@echo "  html       to make standalone HTML files"
++	@echo "  dirhtml    to make HTML files named index.html in directories"
++	@echo "  singlehtml to make a single large HTML file"
++	@echo "  pickle     to make pickle files"
++	@echo "  json       to make JSON files"
++	@echo "  htmlhelp   to make HTML files and a HTML help project"
++	@echo "  qthelp     to make HTML files and a qthelp project"
++	@echo "  devhelp    to make HTML files and a Devhelp project"
++	@echo "  epub       to make an epub"
++	@echo "  latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter"
++	@echo "  latexpdf   to make LaTeX files and run them through pdflatex"
++	@echo "  latexpdfja to make LaTeX files and run them through platex/dvipdfmx"
++	@echo "  text       to make text files"
++	@echo "  man        to make manual pages"
++	@echo "  texinfo    to make Texinfo files"
++	@echo "  info       to make Texinfo files and run them through makeinfo"
++	@echo "  gettext    to make PO message catalogs"
++	@echo "  changes    to make an overview of all changed/added/deprecated items"
++	@echo "  xml        to make Docutils-native XML files"
++	@echo "  pseudoxml  to make pseudoxml-XML files for display purposes"
++	@echo "  linkcheck  to check all external links for integrity"
++	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
++
++clean:
++	rm -rf $(BUILDDIR)/*
++
++html:
++	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
++	@echo
++	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
++
++dirhtml:
++	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
++	@echo
++	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
++
++singlehtml:
++	$(SPHINXBUILD) -b singlehtml $(ALLSPHINXOPTS) $(BUILDDIR)/singlehtml
++	@echo
++	@echo "Build finished. The HTML page is in $(BUILDDIR)/singlehtml."
++
++pickle:
++	$(SPHINXBUILD) -b pickle $(ALLSPHINXOPTS) $(BUILDDIR)/pickle
++	@echo
++	@echo "Build finished; now you can process the pickle files."
++
++json:
++	$(SPHINXBUILD) -b json $(ALLSPHINXOPTS) $(BUILDDIR)/json
++	@echo
++	@echo "Build finished; now you can process the JSON files."
++
++htmlhelp:
++	$(SPHINXBUILD) -b htmlhelp $(ALLSPHINXOPTS) $(BUILDDIR)/htmlhelp
++	@echo
++	@echo "Build finished; now you can run HTML Help Workshop with the" \
++	      ".hhp project file in $(BUILDDIR)/htmlhelp."
++
++qthelp:
++	$(SPHINXBUILD) -b qthelp $(ALLSPHINXOPTS) $(BUILDDIR)/qthelp
++	@echo
++	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
++	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
++	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/PySide.qhcp"
++	@echo "To view the help file:"
++	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/PySide.qhc"
++
++devhelp:
++	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
++	@echo
++	@echo "Build finished."
++	@echo "To view the help file:"
++	@echo "# mkdir -p $$HOME/.local/share/devhelp/PySide"
++	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/PySide"
++	@echo "# devhelp"
++
++epub:
++	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) $(BUILDDIR)/epub
++	@echo
++	@echo "Build finished. The epub file is in $(BUILDDIR)/epub."
++
++latex:
++	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
++	@echo
++	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
++	@echo "Run \`make' in that directory to run these through (pdf)latex" \
++	      "(use \`make latexpdf' here to do that automatically)."
++
++latexpdf:
++	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
++	@echo "Running LaTeX files through pdflatex..."
++	$(MAKE) -C $(BUILDDIR)/latex all-pdf
++	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
++
++latexpdfja:
++	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
++	@echo "Running LaTeX files through platex and dvipdfmx..."
++	$(MAKE) -C $(BUILDDIR)/latex all-pdf-ja
++	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
++
++text:
++	$(SPHINXBUILD) -b text $(ALLSPHINXOPTS) $(BUILDDIR)/text
++	@echo
++	@echo "Build finished. The text files are in $(BUILDDIR)/text."
++
++man:
++	$(SPHINXBUILD) -b man $(ALLSPHINXOPTS) $(BUILDDIR)/man
++	@echo
++	@echo "Build finished. The manual pages are in $(BUILDDIR)/man."
++
++texinfo:
++	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(BUILDDIR)/texinfo
++	@echo
++	@echo "Build finished. The Texinfo files are in $(BUILDDIR)/texinfo."
++	@echo "Run \`make' in that directory to run these through makeinfo" \
++	      "(use \`make info' here to do that automatically)."
++
++info:
++	$(SPHINXBUILD) -b texinfo $(ALLSPHINXOPTS) $(BUILDDIR)/texinfo
++	@echo "Running Texinfo files through makeinfo..."
++	make -C $(BUILDDIR)/texinfo info
++	@echo "makeinfo finished; the Info files are in $(BUILDDIR)/texinfo."
++
++gettext:
++	$(SPHINXBUILD) -b gettext $(I18NSPHINXOPTS) $(BUILDDIR)/locale
++	@echo
++	@echo "Build finished. The message catalogs are in $(BUILDDIR)/locale."
++
++changes:
++	$(SPHINXBUILD) -b changes $(ALLSPHINXOPTS) $(BUILDDIR)/changes
++	@echo
++	@echo "The overview file is in $(BUILDDIR)/changes."
++
++linkcheck:
++	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
++	@echo
++	@echo "Link check complete; look for any errors in the above output " \
++	      "or in $(BUILDDIR)/linkcheck/output.txt."
++
++doctest:
++	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
++	@echo "Testing of doctests in the sources finished, look at the " \
++	      "results in $(BUILDDIR)/doctest/output.txt."
++
++xml:
++	$(SPHINXBUILD) -b xml $(ALLSPHINXOPTS) $(BUILDDIR)/xml
++	@echo
++	@echo "Build finished. The XML files are in $(BUILDDIR)/xml."
++
++pseudoxml:
++	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
++	@echo
++	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
+--- /dev/null
++++ pyside2-5.13.1/docs/building/index.rst
+@@ -0,0 +1,10 @@
++Building PySide
++===============
++
++.. toctree::
++   :maxdepth: 2
++
++   windows.rst
++   macosx.rst
++   linux.rst
++   options.rst
+--- /dev/null
++++ pyside2-5.13.1/docs/building/linux.rst
+@@ -0,0 +1,138 @@
++.. _building_linux:
++
++Building PySide on a Linux System (Ubuntu 12.04 - 14.04)
++========================================================
++
++Installing prerequisites
++------------------------
++
++#. Install build dependencies:
++
++   ::
++
++      $ sudo apt-get install build-essential git cmake libqt4-dev libphonon-dev python2.7-dev libxml2-dev libxslt1-dev qtmobility-dev
++
++#. Install latest ``pip`` distribution into the Python you
++   installed in the first step: download `get-pip.py 
++   <https://bootstrap.pypa.io/get-pip.py>`_ and run it using
++   the ``python`` interpreter of your Python 2.7 installation using a
++   command prompt:
++
++   ::
++
++      $ wget https://bootstrap.pypa.io/get-pip.py
++      $ sudo python2.7 get-pip.py
++
++#. Install latest ``wheel`` distribution:
++
++   ::
++
++      $ sudo pip2.7 install wheel
++
++
++Building PySide distribution
++----------------------------
++
++#. Download ``PySide`` source distribution:
++
++   ::
++
++      $ wget https://pypi.python.org/packages/source/P/PySide/PySide-1.2.2.tar.gz
++
++#. Extract the source distribution:
++
++   ::
++
++      $ tar -xvzf PySide-1.2.2.tar.gz
++
++#. Switch to the distribution directory:
++
++   ::
++
++      $ cd PySide-1.2.2
++
++#. Build the ``wheel`` binary distribution:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4
++
++#. Optionally you can build standalone version of distribution with embedded Qt libs:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4 --standalone
++
++
++Building PySide distribution from a Git repository
++--------------------------------------------------
++
++#. Clone ``PySide`` setup scripts from git repository:
++
++   ::
++
++      $ git clone https://github.com/PySide/pyside-setup.git pyside-setup
++
++#. Switch to the ``pyside-setup`` directory:
++
++   ::
++
++      $ cd pyside-setup
++
++#. Build ``PySide`` distribution:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4 --version=1.2.2
++
++#. Optionally you can build standalone version of distribution with embedded Qt libs:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4 --version=1.2.2 --standalone
++
++#. To build the development version of ``PySide`` distribution, ignore the --version parameter:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel --qmake=/usr/bin/qmake-qt4
++
++
++Installing PySide distribution
++------------------------------
++
++#. After the successful build, install the distribution with ``pip``. The file name may vary depending on your platform so look into the ``dist`` directory for the correct name:
++
++   ::
++
++      $ ls dist
++      PySide-1.2.2-cp27-none-linux-x86_64.whl
++      $ sudo pip2.7 install dist/PySide-1.2.2-cp27-none-linux-x86_64.whl
++
++
++Installing PySide distribution into ``virtual`` Python environment
++------------------------------------------------------------------
++
++#. Install latest ``virtualenv`` distribution:
++
++   ::
++
++      $ sudo pip2.7 virtualenv
++
++#. Use ``virtualenv`` to make a workspace:
++
++   ::
++
++      $ virtualenv-2.7 env
++
++#. Switch to the ``env`` directory:
++
++   ::
++
++      $ cd env
++
++#. Install the distribution with ``pip`` (wheel binary file name may vary by platform):
++
++   ::
++
++      $ bin/pip2.7 install ../dist/PySide-1.2.2-cp27-none-linux-x86_64.whl
+--- /dev/null
++++ pyside2-5.13.1/docs/building/macosx.rst
+@@ -0,0 +1,263 @@
++.. _building_macosx:
++
++Building PySide on a Mac OS X System
++====================================
++
++Mac OS X is a Unix flavor, partially based upon 
++`BSD Unix <http://en.wikipedia.org/wiki/Berkeley_Software_Distribution>`_.
++
++The supported Mac OS X versions created by `Apple <http://www.apple.com/>`_ are
++
++- OS X 10.6 *Snow Leopard*
++- OS X 10.7 *Lion*
++- OS X 10.8 *Mountain Lion*
++- OS X 10.9 *Mavericks*
++- OS X 10.10 *Yosemite*
++
++Mac OS X is a proprietary UNIX flavor of BSD Unix and only partially similar to
++Linux. Therefore, the usual packages from Linux distributions cannot be used
++without modifications.
++
++There are several known package managers which provide support for Mac OS X, namely
++
++- `MacPorts <http://www.macports.org/>`_
++- `Fink <http://www.finkproject.org/>`_
++- `Homebrew <http://brew.sh/>`_
++
++The main purpose of all of these projects is to provide the missing Linux packages
++for Mac OS X.
++
++Throughout this tutorial, we are only using `Homebrew <http://brew.sh/>`_, because
++it appears to be the most light-weight package manager available. All installations
++are made to /usr/local/(bin|lib|include|shared) by simple symlinks.
++
++But it should be easy to translate these instructions for the other, heavier package managers.
++
++
++Installing prerequisites
++------------------------
++
++#. Install Package Manager:
++
++   ::
++
++      $ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
++
++   Follow the on-screen instructions to make adjustions, especially run
++
++   ::
++
++      $ brew doctor
++
++   Also see the `homebrew homepage <http://brew.sh/>`_ for further information
++
++#. Install `Xcode <https://itunes.apple.com/en/app/xcode/id497799835?mt=12>`_ (optional):
++
++   Follow the on-screen instructions. If you selected any extensions to be installed,
++   wait for their completion before you proceed.
++
++   .. note::
++
++      If you are using Mavericks, you can also use the Xcode Command Line Tools without actually installing Xcode
++      (not tested, see this article: `How to Install Command Line Tools in OS X Mavericks (Without Xcode)
++      <http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/>`_).
++
++#. Install the Xcode command Line Tools:
++
++   After Xcode installation has finished, you can open a command shell and issue
++
++   ::
++
++      $ xcode-select --install
++
++   This will open a dialog window with further instructions.
++   After the command line tools are installed, you will not need to use Xcode again
++   in order to set up PySide.
++
++#. Install build dependencies:
++
++   ::
++
++      $ brew install python cmake qt
++
++   Remark: This installs ``Homebrew`` Python, which is fine for you as a single user.
++   If you are considering to build installers for external users, see the section
++   ``About PySide Distributions``.
++
++#. Install latest ``pip`` distribution into the Python you
++   installed in the first step: download `get-pip.py 
++   <https://bootstrap.pypa.io/get-pip.py>`_ and run it using
++   the ``python`` interpreter of your Python 2.7 installation using a
++   command prompt:
++
++   ::
++
++      $ wget https://bootstrap.pypa.io/get-pip.py
++      $ sudo python2.7 get-pip.py
++
++   .. note::
++
++      There are situations with older Python versions, where the above procedure does not work.
++      You can then use this last-resort work-around (tested)::
++
++         $ wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
++         $ sudo python2.7 ez_setup.py
++         $ sudo easy_install pip
++         $ sudo pip install setuptools -U
++         $ sudo pip install wheel -U
++
++#. Install latest ``wheel`` distribution:
++
++   ::
++
++      $ sudo pip2.7 install wheel
++
++
++About PySide Distribution
++-------------------------
++
++If you want to build PySide for your own use, the above instructions are ok.
++
++But when you are considering to build PySide for other versions or other users, you need
++to be aware of the following caveat:
++
++- Mac OS X has the concept of a ``MACOSX_DEPLOYMENT_TARGET``
++
++- The current deployment targets which work with PySide are 10.6 to 10.9 .
++
++- All binary installers from https://www.python.org are built with the setting
++
++::
++
++   $ export MACOSX_DEPLOYMENT_TARGET=10.6  # Snow Leopard
++
++- The default setting for the deployment target of an extension (like PySide)
++  is always inherited from the Python used for building.
++  You can set the deployment target higher than that, but not below the
++  OS X version that was set during building your Python installation.
++  
++- Current distributions like Homebrew set the deployment target to the same
++  value as the OS version they are built with. (I.E. 10.9 for Mavericks).
++  
++- Example: A PySide, built on Mavericks, will therefore not run on a Python that was built
++  for Mountain Lion.
++
++Recommendation:
++
++- Use Homebrew's simplicity for your own machine. Do not use it for distributing.
++
++- Use one of the `Python.org Distributions <https://www.python.org/downloads/>`_
++  or 
++  
++- Build your own Python, either from a tar archive (
++  `Python 2.7 <https://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz>`_ or
++  `Python 3.4 <https://www.python.org/ftp/python/3.4.0/Python-3.4.0.tgz>`_), or from a
++  `Mercurial repository <https://docs.python.org/devguide/>`_ with an explicit setting of
++  ``MACOSX_DEPLOYMENT_TARGET``.
++
++Building PySide distribution
++----------------------------
++
++#. Download ``PySide`` source distribution:
++
++   ::
++
++      $ wget https://pypi.python.org/packages/source/P/PySide/PySide-1.2.2.tar.gz
++
++#. Extract the source distribution:
++
++   ::
++
++      $ tar -xvzf PySide-1.2.2.tar.gz
++
++#. Switch to the distribution directory:
++
++   ::
++
++      $ cd PySide-1.2.2
++
++#. Build the ``wheel`` binary distribution:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel
++
++
++Building PySide distribution from a Git repository
++--------------------------------------------------
++
++#. Clone ``PySide`` setup scripts from git repository:
++
++   ::
++
++      $ git clone https://github.com/PySide/pyside-setup.git pyside-setup
++
++#. Switch to the ``pyside-setup`` directory:
++
++   ::
++
++      $ cd pyside-setup
++
++#. Build ``PySide`` distribution:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel --version=1.2.2
++
++   ..  commented out, working on this
++        #. Optionally you can build standalone version of distribution with embedded Qt libs:
++        
++           ::
++        
++              $ python2.7 setup.py bdist_wheel --version=1.2.2 --standalone
++
++#. To build the development version of ``PySide`` distribution, ignore the --version parameter:
++
++   ::
++
++      $ python2.7 setup.py bdist_wheel
++
++
++Installing PySide distribution
++------------------------------
++
++#. After the successful build, install the distribution with ``pip``:
++
++   ::
++
++      $ sudo pip2.7 install dist/PySide-1.2.2-cp27-none-linux-x86_64.whl
++
++
++Installing PySide distribution into ``virtual`` Python environment
++------------------------------------------------------------------
++
++#. Install latest ``virtualenv`` distribution:
++
++   ::
++
++      $ sudo pip2.7 virtualenv
++
++#. Use ``virtualenv`` to make a workspace:
++
++   ::
++
++      $ virtualenv-2.7 env
++
++#. Activate the virtual Python in the ``env`` directory:
++
++   ::
++
++      $ source env/bin/activate
++
++#. Install the distribution with ``pip``:
++
++   ::
++
++      (env) $ pip install ../dist/PySide-1.2.2-cp27-none-linux-x86_64.whl
++
++#. Leave the virtual environment (optional):
++
++   ::
++
++      (env) $ deactivate
++      $ 
+--- /dev/null
++++ pyside2-5.13.1/docs/building/options.rst
+@@ -0,0 +1,99 @@
++.. _building_options:
++
++PySide Setup Script command line options
++========================================
++
++Usage on a Windows System
++-------------------------
++
++::
++
++   c:\> c:\Python27\python.exe setup.py [distribution_type] [options]
++
++Usage on a Linux/Mac OS X System
++--------------------------------
++
++::
++
++   python2.7 setup.py [distribution_type] [options]
++
++
++Distribution types
++------------------
++
++``bdist_wheel``
++    Create a wheel binary distribution.
++    This distribution type can be installed with ``pip``.
++
++``bdist_egg``
++    Create an egg binary distribution.
++    This distribution type can be installed with ``easy_install``.
++
++``bdist_wininst``
++    Create a standalone windows installer with embedded Qt libs and development tools.
++    This distribution type can be installed with ``easy_install``.
++
++``install``
++    Install package to site packages folder.
++
++``develop``
++    Install package in ``development mode``, such that it's available on
++    ``sys.path``, yet can still be edited directly from its source folder.
++
++``sdist``
++    Create a full source distribution with included sources of PySide Setup Scripts,
++    PySide, Shiboken, PySide Tools and PySide Examples.
++    Can be used to build binary distribution in offline mode.
++
++Options
++-------
++
++``--qmake``
++    Specify the path to qmake.
++    Useful when the qmake is not in path or more than one Qt versions are installed.
++
++``--openssl``
++    Specify the path to OpenSSL libs.
++
++``--only-package``
++    Skip rebuilding everything and create distribution from prebuilt binaries.
++    Before using this option first time, the full distribution build is required.
++
++``--cmake``
++    Specify the path to cmake.
++    Useful when the cmake is not in path.
++
++``--standalone``
++    When enabled, all required Qt libs will be included in PySide distribution.
++    This option is allways enabled on Windows.
++    On Linux it's disabled by default.
++
++    .. note::
++
++      This option does not work on Mac OS X, yet.
++
++``--version``
++    Specify what version of PySide distribution to build.
++    This option is available only when the setup scripts are cloned from git repository.
++
++``--list-versions``
++    List available versions of PySide distributions.
++
++``--ignore-git``
++    Don't pull sources from git repository.
++
++``--make-spec``
++    Specify the cmake makefile generator type.
++    Available values are ``msvc`` on Windows and ``make`` on Linux/Mac OS X.
++
++``--no-examples``
++    Don't include PySide examples in PySide distribution
++
++``--jobs``
++    Specify the number of parallel build jobs
++
++``--jom``
++    Use `jom <http://qt-project.org/wiki/jom>`_ instead of nmake with msvc
++
++``--build-tests``
++    Enable building the tests
+--- /dev/null
++++ pyside2-5.13.1/docs/building/windows.rst
+@@ -0,0 +1,136 @@
++.. _building_windows:
++
++Building PySide on a Windows System
++===================================
++
++Installing prerequisites
++------------------------
++
++#. Install `Python
++   <http://www.python.org/download/>`_.
++
++#. Install `Qt 4.8 libraries for Windows VS 2008 edition
++   <http://download.qt-project.org/official_releases/qt/4.8/4.8.6/qt-opensource-windows-x86-vs2008-4.8.6.exe>`_
++   when building against Python 2.6, 2.7 or 3.2.
++
++   Install `Qt 4.8 libraries for Windows VS 2010 edition
++   <http://download.qt-project.org/official_releases/qt/4.8/4.8.6/qt-opensource-windows-x86-vs2010-4.8.6.exe>`_
++   when building against Python 3.3 or 3.4.
++
++#. Install `Cmake
++   <http://www.cmake.org/cmake/resources/software.html>`_.
++
++#. Install `Windows SDK v7.0
++   <http://www.microsoft.com/en-us/download/details.aspx?id=3138>`_
++   when building against Python 2.6, 2.7 or 3.2.
++
++   Install `Windows SDK v7.1
++   <http://www.microsoft.com/en-us/download/details.aspx?id=8279>`_
++   when building against Python 3.3 or 3.4.
++
++#. Install `Git
++   <http://git-scm.com/download/win>`_.
++
++#. (Optional) Install `OpenSSL
++   <http://slproweb.com/products/Win32OpenSSL.html>`_.
++
++#. Install latest ``pip`` distribution into the Python you
++   installed in the first step: download `get-pip.py 
++   <https://bootstrap.pypa.io/get-pip.py>`_ and run it using
++   the ``python`` interpreter of your Python 2.7 installation using a
++   command prompt:
++
++   ::
++
++      c:\> c:\Python27\python get-pip.py
++
++#. Install latest `wheel` distribution:
++
++   ::
++
++      c:\> c:\Python27\Scripts\pip install wheel
++
++
++Building PySide distribution
++----------------------------
++
++#. Download and extract `PySide source distribution
++   <https://pypi.python.org/packages/source/P/PySide/PySide-1.2.2.tar.gz>`_
++
++#. Switch to the distribution directory:
++
++   ::
++
++      c:\> cd PySide-1.2.2
++
++#. Build the ``wheel`` binary distribution:
++
++   ::
++
++      c:\> c:\Python27\python.exe setup.py bdist_wheel --qmake=c:\Qt\4.8.5\bin\qmake.exe --openssl=c:\OpenSSL32bit\bin
++
++
++Building PySide distribution from a Git repository
++--------------------------------------------------
++
++#. Clone ``PySide`` setup scripts from git repository:
++
++   ::
++
++      c:\> git clone https://github.com/PySide/pyside-setup.git pyside-setup
++
++#. Switch to the ``pyside-setup`` directory:
++
++   ::
++
++      c:\> cd pyside-setup
++
++#. Build the `wheel` binary distribution:
++
++   ::
++
++      c:\> c:\Python27\python.exe setup.py bdist_wheel --version=1.2.2 --qmake=c:\Qt\4.8.5\bin\qmake.exe --openssl=c:\OpenSSL32bit\bin
++
++#. To build the development version of ``PySide`` distribution, ignore the --version parameter:
++
++   ::
++
++      c:\> c:\Python27\python.exe setup.py bdist_wheel --qmake=c:\Qt\4.8.5\bin\qmake.exe --openssl=c:\OpenSSL32bit\bin
++
++
++Installing PySide distribution
++------------------------------
++
++#. After the successful build, install the distribution with ``pip``:
++
++   ::
++
++      c:\> c:\Python27\Scripts\pip install dist\PySide-1.2.2-cp27-none-win32.whl
++
++
++Installing PySide distribution into ``virtual`` Python environment
++------------------------------------------------------------------
++
++#. Install latest ``virtualenv`` distribution:
++
++   ::
++
++      c:\> c:\Python27\Scripts\pip install virtualenv
++
++#. Use ``virtualenv`` to make a workspace:
++
++   ::
++
++      c:\> c:\Python27\Scripts\virtualenv env
++
++#. Switch to the ``env`` directory:
++
++   ::
++
++      c:\> cd env
++
++#. Install the distribution with ``pip``:
++
++   ::
++
++      c:\> Scripts\pip install ..\dist\PySide-1.2.2-cp27-none-win32.whl
+--- /dev/null
++++ pyside2-5.13.1/docs/changes.rst
+@@ -0,0 +1,4 @@
++.. toctree::
++   :maxdepth: 2
++
++.. include:: ../CHANGES.rst
+--- /dev/null
++++ pyside2-5.13.1/docs/conf.py
+@@ -0,0 +1,301 @@
++# -*- coding: utf-8 -*-
++#############################################################################
++##
++## Copyright (C) 2017 The Qt Company Ltd.
++## Contact: https://www.qt.io/licensing/
++##
++## This file is part of Qt for Python.
++##
++## $QT_BEGIN_LICENSE:LGPL$
++## Commercial License Usage
++## Licensees holding valid commercial Qt licenses may use this file in
++## accordance with the commercial license agreement provided with the
++## Software or, alternatively, in accordance with the terms contained in
++## a written agreement between you and The Qt Company. For licensing terms
++## and conditions see https://www.qt.io/terms-conditions. For further
++## information use the contact form at https://www.qt.io/contact-us.
++##
++## GNU Lesser General Public License Usage
++## Alternatively, this file may be used under the terms of the GNU Lesser
++## General Public License version 3 as published by the Free Software
++## Foundation and appearing in the file LICENSE.LGPL3 included in the
++## packaging of this file. Please review the following information to
++## ensure the GNU Lesser General Public License version 3 requirements
++## will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
++##
++## GNU General Public License Usage
++## Alternatively, this file may be used under the terms of the GNU
++## General Public License version 2.0 or (at your option) the GNU General
++## Public license version 3 or any later version approved by the KDE Free
++## Qt Foundation. The licenses are as published by the Free Software
++## Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
++## included in the packaging of this file. Please review the following
++## information to ensure the GNU General Public License requirements will
++## be met: https://www.gnu.org/licenses/gpl-2.0.html and
++## https://www.gnu.org/licenses/gpl-3.0.html.
++##
++## $QT_END_LICENSE$
++##
++#############################################################################
++#
++# PySide documentation build configuration file, created by
++# sphinx-quickstart on Mon May 12 22:14:54 2014.
++#
++# This file is execfile()d with the current directory set to its
++# containing dir.
++#
++# Note that not all possible configuration values are present in this
++# autogenerated file.
++#
++# All configuration values have a default; values that are commented out
++# serve to show the default.
++
++import sys
++import os
++
++# If extensions (or modules to document with autodoc) are in another directory,
++# add these directories to sys.path here. If the directory is relative to the
++# documentation root, use os.path.abspath to make it absolute, like shown here.
++#sys.path.insert(0, os.path.abspath('.'))
++
++# -- General configuration ------------------------------------------------
++
++# If your documentation needs a minimal Sphinx version, state it here.
++#needs_sphinx = '1.0'
++
++# Add any Sphinx extension module names here, as strings. They can be
++# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
++# ones.
++extensions = []
++
++# Add any paths that contain templates here, relative to this directory.
++templates_path = ['_templates']
++
++# The suffix of source filenames.
++source_suffix = '.rst'
++
++# The encoding of source files.
++#source_encoding = 'utf-8-sig'
++
++# The master toctree document.
++master_doc = 'index'
++
++# General information about the project.
++project = u'PySide'
++copyright = u'2014, PySide Team'
++
++# The version info for the project you're documenting, acts as replacement for
++# |version| and |release|, also used in various other places throughout the
++# built documents.
++#
++# The short X.Y version.
++version = '1.2.2'
++# The full version, including alpha/beta/rc tags.
++release = '1.2.2'
++
++# The language for content autogenerated by Sphinx. Refer to documentation
++# for a list of supported languages.
++#language = None
++
++# There are two options for replacing |today|: either, you set today to some
++# non-false value, then it is used:
++#today = ''
++# Else, today_fmt is used as the format for a strftime call.
++#today_fmt = '%B %d, %Y'
++
++# List of patterns, relative to source directory, that match files and
++# directories to ignore when looking for source files.
++exclude_patterns = ['_build']
++
++# The reST default role (used for this markup: `text`) to use for all
++# documents.
++#default_role = None
++
++# If true, '()' will be appended to :func: etc. cross-reference text.
++#add_function_parentheses = True
++
++# If true, the current module name will be prepended to all description
++# unit titles (such as .. function::).
++#add_module_names = True
++
++# If true, sectionauthor and moduleauthor directives will be shown in the
++# output. They are ignored by default.
++#show_authors = False
++
++# The name of the Pygments (syntax highlighting) style to use.
++pygments_style = 'sphinx'
++
++# A list of ignored prefixes for module index sorting.
++#modindex_common_prefix = []
++
++# If true, keep warnings as "system message" paragraphs in the built documents.
++#keep_warnings = False
++
++
++# -- Options for HTML output ----------------------------------------------
++
++# The theme to use for HTML and HTML Help pages.  See the documentation for
++# a list of builtin themes.
++html_theme = 'default'
++
++# Theme options are theme-specific and customize the look and feel of a theme
++# further.  For a list of options available for each theme, see the
++# documentation.
++#html_theme_options = {}
++
++# Add any paths that contain custom themes here, relative to this directory.
++#html_theme_path = []
++
++# on_rtd is whether we are on readthedocs.org
++on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
++
++if not on_rtd:
++    # only import and set the theme if we're building docs locally
++    import sphinx_rtd_theme
++    html_theme = 'sphinx_rtd_theme'
++    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
++
++# The name for this set of Sphinx documents.  If None, it defaults to
++# "<project> v<release> documentation".
++#html_title = None
++
++# A shorter title for the navigation bar.  Default is the same as html_title.
++#html_short_title = None
++
++# The name of an image file (relative to this directory) to place at the top
++# of the sidebar.
++#html_logo = None
++
++# The name of an image file (within the static path) to use as favicon of the
++# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
++# pixels large.
++#html_favicon = None
++
++# Add any paths that contain custom static files (such as style sheets) here,
++# relative to this directory. They are copied after the builtin static files,
++# so a file named "default.css" will overwrite the builtin "default.css".
++html_static_path = ['_static']
++
++# Add any extra paths that contain custom files (such as robots.txt or
++# .htaccess) here, relative to this directory. These files are copied
++# directly to the root of the documentation.
++#html_extra_path = []
++
++# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
++# using the given strftime format.
++#html_last_updated_fmt = '%b %d, %Y'
++
++# Custom sidebar templates, maps document names to template names.
++#html_sidebars = {}
++
++# Additional templates that should be rendered to pages, maps page names to
++# template names.
++#html_additional_pages = {}
++
++# If false, no module index is generated.
++#html_domain_indices = True
++
++# If false, no index is generated.
++#html_use_index = True
++
++# If true, the index is split into individual pages for each letter.
++#html_split_index = False
++
++# If true, links to the reST sources are added to the pages.
++#html_show_sourcelink = True
++
++# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
++#html_show_sphinx = True
++
++# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
++#html_show_copyright = True
++
++# If true, an OpenSearch description file will be output, and all pages will
++# contain a <link> tag referring to it.  The value of this option must be the
++# base URL from which the finished HTML is served.
++#html_use_opensearch = ''
++
++# This is the file name suffix for HTML files (e.g. ".xhtml").
++#html_file_suffix = None
++
++# Output file base name for HTML help builder.
++htmlhelp_basename = 'PySidedoc'
++
++
++# -- Options for LaTeX output ---------------------------------------------
++
++latex_elements = {
++# The paper size ('letterpaper' or 'a4paper').
++#'papersize': 'letterpaper',
++
++# The font size ('10pt', '11pt' or '12pt').
++#'pointsize': '10pt',
++
++# Additional stuff for the LaTeX preamble.
++#'preamble': '',
++}
++
++# Grouping the document tree into LaTeX files. List of tuples
++# (source start file, target name, title,
++#  author, documentclass [howto, manual, or own class]).
++latex_documents = [
++  ('index', 'PySide.tex', u'PySide Documentation',
++   u'PySide Team', 'manual'),
++]
++
++# The name of an image file (relative to this directory) to place at the top of
++# the title page.
++#latex_logo = None
++
++# For "manual" documents, if this is true, then toplevel headings are parts,
++# not chapters.
++#latex_use_parts = False
++
++# If true, show page references after internal links.
++#latex_show_pagerefs = False
++
++# If true, show URL addresses after external links.
++#latex_show_urls = False
++
++# Documents to append as an appendix to all manuals.
++#latex_appendices = []
++
++# If false, no module index is generated.
++#latex_domain_indices = True
++
++
++# -- Options for manual page output ---------------------------------------
++
++# One entry per manual page. List of tuples
++# (source start file, name, description, authors, manual section).
++man_pages = [
++    ('index', 'pyside', u'PySide Documentation',
++     [u'PySide Team'], 1)
++]
++
++# If true, show URL addresses after external links.
++#man_show_urls = False
++
++
++# -- Options for Texinfo output -------------------------------------------
++
++# Grouping the document tree into Texinfo files. List of tuples
++# (source start file, target name, title, author,
++#  dir menu entry, description, category)
++texinfo_documents = [
++  ('index', 'PySide', u'PySide Documentation',
++   u'PySide Team', 'PySide', 'One line description of project.',
++   'Miscellaneous'),
++]
++
++# Documents to append as an appendix to all manuals.
++#texinfo_appendices = []
++
++# If false, no module index is generated.
++#texinfo_domain_indices = True
++
++# How to display URL addresses: 'footnote', 'no', or 'inline'.
++#texinfo_show_urls = 'footnote'
++
++# If true, do not generate a @detailmenu in the "Top" node's menu.
++#texinfo_no_detailmenu = False
+--- /dev/null
++++ pyside2-5.13.1/docs/index.rst
+@@ -0,0 +1,50 @@
++======
++PySide
++======
++
++|
++
++Introduction
++============
++
++PySide is the Python Qt bindings project, providing access the complete Qt 4.8 framework
++as well as to generator tools for rapidly generating bindings for any C++ libraries.
++
++The PySide project is developed in the open, with all facilities you'd expect
++from any modern OSS project such as all code in a git repository, an open
++Bugzilla for reporting bugs, and an open design process. We welcome
++any contribution without requiring a transfer of copyright.
++
++The PySide reference documentation is hosted at
++`http://pyside.github.io/docs/pyside/
++<http://pyside.github.io/docs/pyside/>`_.
++
++
++Compatibility
++=============
++
++PySide requires Python 2.6 or later and Qt 4.6 or better.
++
++.. note::
++
++   Qt 5.x is currently under construction.
++
++
++Contents
++========
++
++.. toctree::
++   :maxdepth: 2
++
++   installing/index.rst
++   building/index.rst
++   changes.rst
++
++
++Feedback and getting involved
++=============================
++
++- Mailing list: http://lists.qt-project.org/mailman/listinfo/pyside
++- Issue tracker: https://bugreports.qt-project.org/browse/PYSIDE
++- Code Repository: http://qt.gitorious.org/pyside
++- Examples Code Repository: https://github.com/PySide/Examples
+--- /dev/null
++++ pyside2-5.13.1/docs/installing/index.rst
+@@ -0,0 +1,9 @@
++Installing PySide
++=================
++
++.. toctree::
++   :maxdepth: 2
++
++   windows.rst
++   macosx.rst
++   linux.rst
+--- /dev/null
++++ pyside2-5.13.1/docs/installing/linux.rst
+@@ -0,0 +1,9 @@
++.. _installing_linux:
++
++Installing PySide on a Linux System
++===================================
++
++We do not provide binaries for Linux. Please read
++the build instructions in section
++`Building PySide on a Linux System
++<http://pyside.readthedocs.org/en/latest/building/linux.html>`_.
+--- /dev/null
++++ pyside2-5.13.1/docs/installing/macosx.rst
+@@ -0,0 +1,32 @@
++.. _installing_macosx:
++
++Installing PySide on a Mac OS X System
++======================================
++
++Installing prerequisites
++------------------------
++
++Install latest ``pip`` distribution: download `get-pip.py
++<https://bootstrap.pypa.io/get-pip.py>`_ and run it using
++the ``python`` interpreter.
++
++You need to install or build Qt 4.8 first, see the `Qt Project Documentation
++<http://qt-project.org/doc/qt-4.8/install-mac.html>`_.
++
++Alternatively you can use `Homebrew <http://brew.sh/>`_ and install Qt with
++
++::
++
++   $ brew install qt
++
++Installing PySide
++-----------------
++
++To install PySide on Mac OS X you can choose from the following options:
++
++#. Use pip to install the ``wheel`` binary packages:
++
++   ::
++
++      $ pip install -U PySide
++
+--- /dev/null
++++ pyside2-5.13.1/docs/installing/windows.rst
+@@ -0,0 +1,33 @@
++.. _installing_windows:
++
++Installing PySide on a Windows System
++=====================================
++
++Installing prerequisites
++------------------------
++
++Install latest ``pip`` distribution: download `get-pip.py
++<https://bootstrap.pypa.io/get-pip.py>`_ and run it using
++the ``python`` interpreter.
++
++Installing PySide
++-----------------
++
++To install PySide on Windows you can choose from the following options:
++
++#. Use pip to install the ``wheel`` binary packages:
++
++   ::
++
++      pip install -U PySide
++
++#. Use setuptools to install the ``egg`` binary packages (deprecated):
++
++   ::
++
++      easy_install -U PySide
++
++.. note::
++
++   Provided binaries are without any other external dependencies.
++   All required Qt libraries, development tools and examples are included.
+--- /dev/null
++++ pyside2-5.13.1/docs/make.bat
+@@ -0,0 +1,281 @@
++:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
++::
++:: Copyright (C) 2017 The Qt Company Ltd.
++:: Contact: https://www.qt.io/licensing/
++::
++:: This file is part of Qt for Python.
++::
++:: $QT_BEGIN_LICENSE:LGPL$
++:: Commercial License Usage
++:: Licensees holding valid commercial Qt licenses may use this file in
++:: accordance with the commercial license agreement provided with the
++:: Software or, alternatively, in accordance with the terms contained in
++:: a written agreement between you and The Qt Company. For licensing terms
++:: and conditions see https://www.qt.io/terms-conditions. For further
++:: information use the contact form at https://www.qt.io/contact-us.
++::
++:: GNU Lesser General Public License Usage
++:: Alternatively, this file may be used under the terms of the GNU Lesser
++:: General Public License version 3 as published by the Free Software
++:: Foundation and appearing in the file LICENSE.LGPL3 included in the
++:: packaging of this file. Please review the following information to
++:: ensure the GNU Lesser General Public License version 3 requirements
++:: will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
++::
++:: GNU General Public License Usage
++:: Alternatively, this file may be used under the terms of the GNU
++:: General Public License version 2.0 or (at your option) the GNU General
++:: Public license version 3 or any later version approved by the KDE Free
++:: Qt Foundation. The licenses are as published by the Free Software
++:: Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
++:: included in the packaging of this file. Please review the following
++:: information to ensure the GNU General Public License requirements will
++:: be met: https://www.gnu.org/licenses/gpl-2.0.html and
++:: https://www.gnu.org/licenses/gpl-3.0.html.
++::
++:: $QT_END_LICENSE$
++::
++::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
++
++@ECHO OFF
++
++REM Command file for Sphinx documentation
++
++if "%SPHINXBUILD%" == "" (
++	set SPHINXBUILD=sphinx-build
++)
++set BUILDDIR=_build
++set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% .
++set I18NSPHINXOPTS=%SPHINXOPTS% .
++if NOT "%PAPER%" == "" (
++	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
++	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%
++)
++
++if "%1" == "" goto help
++
++if "%1" == "help" (
++	:help
++	echo.Please use `make ^<target^>` where ^<target^> is one of
++	echo.  html       to make standalone HTML files
++	echo.  dirhtml    to make HTML files named index.html in directories
++	echo.  singlehtml to make a single large HTML file
++	echo.  pickle     to make pickle files
++	echo.  json       to make JSON files
++	echo.  htmlhelp   to make HTML files and a HTML help project
++	echo.  qthelp     to make HTML files and a qthelp project
++	echo.  devhelp    to make HTML files and a Devhelp project
++	echo.  epub       to make an epub
++	echo.  latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter
++	echo.  text       to make text files
++	echo.  man        to make manual pages
++	echo.  texinfo    to make Texinfo files
++	echo.  gettext    to make PO message catalogs
++	echo.  changes    to make an overview over all changed/added/deprecated items
++	echo.  xml        to make Docutils-native XML files
++	echo.  pseudoxml  to make pseudoxml-XML files for display purposes
++	echo.  linkcheck  to check all external links for integrity
++	echo.  doctest    to run all doctests embedded in the documentation if enabled
++	goto end
++)
++
++if "%1" == "clean" (
++	for /d %%i in (%BUILDDIR%\*) do rmdir /q /s %%i
++	del /q /s %BUILDDIR%\*
++	goto end
++)
++
++
++%SPHINXBUILD% 2> nul
++if errorlevel 9009 (
++	echo.
++	echo.The 'sphinx-build' command was not found. Make sure you have Sphinx
++	echo.installed, then set the SPHINXBUILD environment variable to point
++	echo.to the full path of the 'sphinx-build' executable. Alternatively you
++	echo.may add the Sphinx directory to PATH.
++	echo.
++	echo.If you don't have Sphinx installed, grab it from
++	echo.http://sphinx-doc.org/
++	exit /b 1
++)
++
++if "%1" == "html" (
++	%SPHINXBUILD% -b html %ALLSPHINXOPTS% %BUILDDIR%/html
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The HTML pages are in %BUILDDIR%/html.
++	goto end
++)
++
++if "%1" == "dirhtml" (
++	%SPHINXBUILD% -b dirhtml %ALLSPHINXOPTS% %BUILDDIR%/dirhtml
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The HTML pages are in %BUILDDIR%/dirhtml.
++	goto end
++)
++
++if "%1" == "singlehtml" (
++	%SPHINXBUILD% -b singlehtml %ALLSPHINXOPTS% %BUILDDIR%/singlehtml
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The HTML pages are in %BUILDDIR%/singlehtml.
++	goto end
++)
++
++if "%1" == "pickle" (
++	%SPHINXBUILD% -b pickle %ALLSPHINXOPTS% %BUILDDIR%/pickle
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished; now you can process the pickle files.
++	goto end
++)
++
++if "%1" == "json" (
++	%SPHINXBUILD% -b json %ALLSPHINXOPTS% %BUILDDIR%/json
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished; now you can process the JSON files.
++	goto end
++)
++
++if "%1" == "htmlhelp" (
++	%SPHINXBUILD% -b htmlhelp %ALLSPHINXOPTS% %BUILDDIR%/htmlhelp
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished; now you can run HTML Help Workshop with the ^
++.hhp project file in %BUILDDIR%/htmlhelp.
++	goto end
++)
++
++if "%1" == "qthelp" (
++	%SPHINXBUILD% -b qthelp %ALLSPHINXOPTS% %BUILDDIR%/qthelp
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished; now you can run "qcollectiongenerator" with the ^
++.qhcp project file in %BUILDDIR%/qthelp, like this:
++	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\PySide.qhcp
++	echo.To view the help file:
++	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\PySide.ghc
++	goto end
++)
++
++if "%1" == "devhelp" (
++	%SPHINXBUILD% -b devhelp %ALLSPHINXOPTS% %BUILDDIR%/devhelp
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished.
++	goto end
++)
++
++if "%1" == "epub" (
++	%SPHINXBUILD% -b epub %ALLSPHINXOPTS% %BUILDDIR%/epub
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The epub file is in %BUILDDIR%/epub.
++	goto end
++)
++
++if "%1" == "latex" (
++	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished; the LaTeX files are in %BUILDDIR%/latex.
++	goto end
++)
++
++if "%1" == "latexpdf" (
++	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
++	cd %BUILDDIR%/latex
++	make all-pdf
++	cd %BUILDDIR%/..
++	echo.
++	echo.Build finished; the PDF files are in %BUILDDIR%/latex.
++	goto end
++)
++
++if "%1" == "latexpdfja" (
++	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
++	cd %BUILDDIR%/latex
++	make all-pdf-ja
++	cd %BUILDDIR%/..
++	echo.
++	echo.Build finished; the PDF files are in %BUILDDIR%/latex.
++	goto end
++)
++
++if "%1" == "text" (
++	%SPHINXBUILD% -b text %ALLSPHINXOPTS% %BUILDDIR%/text
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The text files are in %BUILDDIR%/text.
++	goto end
++)
++
++if "%1" == "man" (
++	%SPHINXBUILD% -b man %ALLSPHINXOPTS% %BUILDDIR%/man
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The manual pages are in %BUILDDIR%/man.
++	goto end
++)
++
++if "%1" == "texinfo" (
++	%SPHINXBUILD% -b texinfo %ALLSPHINXOPTS% %BUILDDIR%/texinfo
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The Texinfo files are in %BUILDDIR%/texinfo.
++	goto end
++)
++
++if "%1" == "gettext" (
++	%SPHINXBUILD% -b gettext %I18NSPHINXOPTS% %BUILDDIR%/locale
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The message catalogs are in %BUILDDIR%/locale.
++	goto end
++)
++
++if "%1" == "changes" (
++	%SPHINXBUILD% -b changes %ALLSPHINXOPTS% %BUILDDIR%/changes
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.The overview file is in %BUILDDIR%/changes.
++	goto end
++)
++
++if "%1" == "linkcheck" (
++	%SPHINXBUILD% -b linkcheck %ALLSPHINXOPTS% %BUILDDIR%/linkcheck
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Link check complete; look for any errors in the above output ^
++or in %BUILDDIR%/linkcheck/output.txt.
++	goto end
++)
++
++if "%1" == "doctest" (
++	%SPHINXBUILD% -b doctest %ALLSPHINXOPTS% %BUILDDIR%/doctest
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Testing of doctests in the sources finished, look at the ^
++results in %BUILDDIR%/doctest/output.txt.
++	goto end
++)
++
++if "%1" == "xml" (
++	%SPHINXBUILD% -b xml %ALLSPHINXOPTS% %BUILDDIR%/xml
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The XML files are in %BUILDDIR%/xml.
++	goto end
++)
++
++if "%1" == "pseudoxml" (
++	%SPHINXBUILD% -b pseudoxml %ALLSPHINXOPTS% %BUILDDIR%/pseudoxml
++	if errorlevel 1 exit /b 1
++	echo.
++	echo.Build finished. The pseudo-XML files are in %BUILDDIR%/pseudoxml.
++	goto end
++)
++
++:end

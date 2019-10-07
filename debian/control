@@ -7,6 +7,8 @@ Uploaders: Sophie Brun <sophie@freexian.com>,
 	   Sebastien Delafond <seb@debian.org>
 Build-Depends: chrpath,
                cmake (>= 3.1),
+               cmake-extras,
+               extra-cmake-modules,
                debhelper (>= 11),
                dh-exec,
                dh-python,

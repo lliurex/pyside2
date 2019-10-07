@@ -192,7 +192,7 @@ Last-Update: 2018-07-09
  private:
  
      struct CompPhdr
-@@ -93,8 +135,11 @@ private:
+@@ -93,8 +135,11 @@
          ElfFile * elfFile;
          bool operator ()(const Elf_Phdr & x, const Elf_Phdr & y)
          {
@@ -205,7 +205,7 @@ Last-Update: 2018-07-09
              return elfFile->rdi(x.p_paddr) < elfFile->rdi(y.p_paddr);
          }
      };
-@@ -118,7 +163,7 @@ private:
+@@ -118,7 +163,7 @@
  
      void shiftFile(unsigned int extraPages, Elf_Addr startPage);
  
@@ -214,7 +214,7 @@ Last-Update: 2018-07-09
  
      Elf_Shdr & findSection(const SectionName & sectionName);
  
-@@ -126,9 +171,11 @@ private:
+@@ -126,9 +171,11 @@
  
      unsigned int findSection3(const SectionName & sectionName);
  
@@ -227,7 +227,7 @@ Last-Update: 2018-07-09
      void writeReplacedSections(Elf_Off & curOff,
          Elf_Addr startAddr, Elf_Off startOffset);
  
-@@ -142,15 +189,27 @@ public:
+@@ -142,15 +189,27 @@
  
      void rewriteSections();
  
@@ -260,7 +260,7 @@ Last-Update: 2018-07-09
  
  private:
  
-@@ -205,73 +264,151 @@ static void debug(const char * format, .
+@@ -205,73 +264,151 @@
  }
  
  
@@ -442,7 +442,7 @@ Last-Update: 2018-07-09
  
      if (rdi(hdr->e_phentsize) != sizeof(Elf_Phdr))
          error("program headers have wrong size");
-@@ -292,12 +429,12 @@ void ElfFile<ElfFileParamNames>::parse()
+@@ -292,12 +429,12 @@
      assert(shstrtabIndex < shdrs.size());
      unsigned int shstrtabSize = rdi(shdrs[shstrtabIndex].sh_size);
      char * shstrtab = (char * ) contents + rdi(shdrs[shstrtabIndex].sh_offset);
@@ -457,7 +457,7 @@ Last-Update: 2018-07-09
  
      sectionsByOldIndex.resize(hdr->e_shnum);
      for (unsigned int i = 1; i < rdi(hdr->e_shnum); ++i)
-@@ -320,13 +457,13 @@ void ElfFile<ElfFileParamNames>::sortShd
+@@ -320,13 +457,13 @@
  {
      /* Translate sh_link mappings to section names, since sorting the
         sections will invalidate the sh_link fields. */
@@ -473,7 +473,7 @@ Last-Update: 2018-07-09
      for (unsigned int i = 1; i < rdi(hdr->e_shnum); ++i)
          if (rdi(shdrs[i].sh_info) != 0 &&
              (rdi(shdrs[i].sh_type) == SHT_REL || rdi(shdrs[i].sh_type) == SHT_RELA))
-@@ -358,21 +495,22 @@ void ElfFile<ElfFileParamNames>::sortShd
+@@ -358,21 +495,22 @@
  }
  
  
@@ -508,7 +508,7 @@ Last-Update: 2018-07-09
  }
  
  
-@@ -385,12 +523,12 @@ static unsigned int roundUp(unsigned int
+@@ -385,12 +523,12 @@
  template<ElfFileParams>
  void ElfFile<ElfFileParamNames>::shiftFile(unsigned int extraPages, Elf_Addr startPage)
  {
@@ -526,7 +526,7 @@ Last-Update: 2018-07-09
      memset(contents + sizeof(Elf_Ehdr), 0, shift - sizeof(Elf_Ehdr));
  
      /* Adjust the ELF header. */
-@@ -407,8 +545,8 @@ void ElfFile<ElfFileParamNames>::shiftFi
+@@ -407,8 +545,8 @@
          if (rdi(phdrs[i].p_align) != 0 &&
              (rdi(phdrs[i].p_vaddr) - rdi(phdrs[i].p_offset)) % rdi(phdrs[i].p_align) != 0) {
              debug("changing alignment of program header %d from %d to %d\n", i,
@@ -537,7 +537,7 @@ Last-Update: 2018-07-09
          }
      }
  
-@@ -422,14 +560,14 @@ void ElfFile<ElfFileParamNames>::shiftFi
+@@ -422,14 +560,14 @@
      wri(phdr.p_vaddr, wri(phdr.p_paddr, startPage));
      wri(phdr.p_filesz, wri(phdr.p_memsz, shift));
      wri(phdr.p_flags, PF_R | PF_W);
@@ -555,7 +555,7 @@ Last-Update: 2018-07-09
  }
  
  
-@@ -437,8 +575,12 @@ template<ElfFileParams>
+@@ -437,8 +575,12 @@
  Elf_Shdr & ElfFile<ElfFileParamNames>::findSection(const SectionName & sectionName)
  {
      Elf_Shdr * shdr = findSection2(sectionName);
@@ -570,7 +570,7 @@ Last-Update: 2018-07-09
      return *shdr;
  }
  
-@@ -459,19 +601,28 @@ unsigned int ElfFile<ElfFileParamNames>:
+@@ -459,19 +601,28 @@
      return 0;
  }
  
@@ -603,7 +603,7 @@ Last-Update: 2018-07-09
      }
  
      s.resize(size);
-@@ -488,29 +639,25 @@ void ElfFile<ElfFileParamNames>::writeRe
+@@ -488,29 +639,25 @@
      /* Overwrite the old section contents with 'X's.  Do this
         *before* writing the new section contents (below) to prevent
         clobbering previously written new section contents. */
@@ -642,7 +642,7 @@ Last-Update: 2018-07-09
          wri(shdr.sh_addralign, sectionAlignment);
  
          /* If this is the .interp section, then the PT_INTERP segment
-@@ -535,7 +682,7 @@ void ElfFile<ElfFileParamNames>::writeRe
+@@ -535,7 +682,7 @@
                  }
          }
  
@@ -651,7 +651,7 @@ Last-Update: 2018-07-09
      }
  
      replacedSections.clear();
-@@ -551,58 +698,57 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -551,58 +698,57 @@
         page of other segments. */
      Elf_Addr startPage = 0;
      for (unsigned int i = 0; i < phdrs.size(); ++i) {
@@ -742,7 +742,7 @@ Last-Update: 2018-07-09
      phdrs.resize(rdi(hdr->e_phnum) + 1);
      wri(hdr->e_phnum, rdi(hdr->e_phnum) + 1);
      Elf_Phdr & phdr = phdrs[rdi(hdr->e_phnum) - 1];
-@@ -611,19 +757,16 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -611,19 +757,16 @@
      wri(phdr.p_vaddr, wri(phdr.p_paddr, startPage));
      wri(phdr.p_filesz, wri(phdr.p_memsz, neededSpace));
      wri(phdr.p_flags, PF_R | PF_W);
@@ -767,7 +767,7 @@ Last-Update: 2018-07-09
  }
  
  
-@@ -638,9 +781,9 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -638,9 +781,9 @@
      /* What is the index of the last replaced section? */
      unsigned int lastReplaced = 0;
      for (unsigned int i = 1; i < rdi(hdr->e_shnum); ++i) {
@@ -779,7 +779,7 @@ Last-Update: 2018-07-09
              lastReplaced = i;
          }
      }
-@@ -656,11 +799,11 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -656,11 +799,11 @@
      assert(lastReplaced + 1 < shdrs.size()); /* !!! I'm lazy. */
      size_t startOffset = rdi(shdrs[lastReplaced + 1].sh_offset);
      Elf_Addr startAddr = rdi(shdrs[lastReplaced + 1].sh_addr);
@@ -794,7 +794,7 @@ Last-Update: 2018-07-09
          /* !!! Why do we stop after a .dynstr section? I can't
             remember! */
          if ((rdi(shdr.sh_type) == SHT_PROGBITS && sectionName != ".interp")
-@@ -672,7 +815,7 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -672,7 +815,7 @@
              break;
          } else {
              if (replacedSections.find(sectionName) == replacedSections.end()) {
@@ -803,7 +803,7 @@ Last-Update: 2018-07-09
                  replaceSection(sectionName, rdi(shdr.sh_size));
              }
          }
-@@ -682,23 +825,33 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -682,23 +825,33 @@
      debug("first reserved offset/addr is 0x%x/0x%llx\n",
          startOffset, (unsigned long long) startAddr);
  
@@ -846,7 +846,7 @@ Last-Update: 2018-07-09
  
      debug("needed space is %d\n", neededSpace);
  
-@@ -711,13 +864,13 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -711,13 +864,13 @@
          neededSpace += sizeof(Elf_Phdr);
          debug("needed space is %d\n", neededSpace);
  
@@ -864,7 +864,7 @@ Last-Update: 2018-07-09
  
          shiftFile(neededPages, firstPage);
      }
-@@ -731,7 +884,7 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -731,7 +884,7 @@
  
      /* Write out the replaced sections. */
      writeReplacedSections(curOff, firstPage, 0);
@@ -873,7 +873,7 @@ Last-Update: 2018-07-09
  
  
      rewriteHeaders(firstPage + rdi(hdr->e_phoff));
-@@ -743,10 +896,9 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -743,10 +896,9 @@
  {
      if (replacedSections.empty()) return;
  
@@ -887,7 +887,7 @@ Last-Update: 2018-07-09
  
      if (rdi(hdr->e_type) == ET_DYN) {
          debug("this is a dynamic library\n");
-@@ -764,11 +916,14 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -764,11 +916,14 @@
      /* Rewrite the program header table. */
  
      /* If there is a segment for the program header table, update it.
@@ -907,7 +907,7 @@ Last-Update: 2018-07-09
      }
  
      sortPhdrs();
-@@ -815,11 +970,18 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -815,11 +970,18 @@
                  /* no idea if this makes sense, but it was needed for some
                     program */
                  if (!shdr) shdr = findSection2(".rel.got");
@@ -929,7 +929,7 @@ Last-Update: 2018-07-09
              else if (d_tag == DT_VERNEED)
                  dyn->d_un.d_ptr = findSection(".gnu.version_r").sh_addr;
              else if (d_tag == DT_VERSYM)
-@@ -835,12 +997,21 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -835,12 +997,21 @@
          debug("rewriting symbol table section %d\n", i);
          for (size_t entry = 0; (entry + 1) * sizeof(Elf_Sym) <= rdi(shdrs[i].sh_size); entry++) {
              Elf_Sym * sym = (Elf_Sym *) (contents + rdi(shdrs[i].sh_offset) + entry * sizeof(Elf_Sym));
@@ -954,7 +954,7 @@ Last-Update: 2018-07-09
              }
          }
      }
-@@ -848,7 +1019,7 @@ void ElfFile<ElfFileParamNames>::rewrite
+@@ -848,7 +1019,7 @@
  
  
  
@@ -963,7 +963,7 @@ Last-Update: 2018-07-09
  {
      assert(pos + t.size() <= s.size());
      copy(t.begin(), t.end(), s.begin() + pos);
-@@ -856,23 +1027,102 @@ static void setSubstr(string & s, unsign
+@@ -856,23 +1027,102 @@
  
  
  template<ElfFileParams>
@@ -1071,7 +1071,7 @@ Last-Update: 2018-07-09
  {
      if (!rpath.empty()) rpath += ":";
      rpath += path;
-@@ -880,7 +1130,8 @@ static void concatToRPath(string & rpath
+@@ -880,7 +1130,8 @@
  
  
  template<ElfFileParams>
@@ -1081,7 +1081,7 @@ Last-Update: 2018-07-09
  {
      Elf_Shdr & shdrDynamic = findSection(".dynamic");
  
-@@ -889,15 +1140,6 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -889,15 +1140,6 @@
      Elf_Shdr & shdrDynStr = findSection(".dynstr");
      char * strTab = (char *) contents + rdi(shdrDynStr.sh_offset);
  
@@ -1097,7 +1097,7 @@ Last-Update: 2018-07-09
  
      /* Walk through the dynamic section, look for the RPATH/RUNPATH
         entry.
-@@ -907,12 +1149,12 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -907,12 +1149,12 @@
         overriden by LD_LIBRARY_PATH, and it's scoped (the DT_RUNPATH
         for an executable or library doesn't affect the search path for
         libraries used by it).  DT_RPATH is ignored if DT_RUNPATH is
@@ -1114,7 +1114,7 @@ Last-Update: 2018-07-09
      Elf_Dyn * dynRPath = 0, * dynRunPath = 0;
      char * rpath = 0;
      for ( ; rdi(dyn->d_tag) != DT_NULL; dyn++) {
-@@ -927,7 +1169,7 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -927,7 +1169,7 @@
              rpath = strTab + rdi(dyn->d_un.d_val);
          }
          else if (rdi(dyn->d_tag) == DT_NEEDED)
@@ -1123,7 +1123,7 @@ Last-Update: 2018-07-09
      }
  
      if (op == rpPrint) {
-@@ -944,19 +1186,11 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -944,19 +1186,11 @@
      /* For each directory in the RPATH, check if it contains any
         needed library. */
      if (op == rpShrink) {
@@ -1145,7 +1145,7 @@ Last-Update: 2018-07-09
  
              /* Non-absolute entries are allowed (e.g., the special
                 "$ORIGIN" hack). */
-@@ -965,28 +1199,62 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -965,28 +1199,62 @@
                  continue;
              }
  
@@ -1215,7 +1215,7 @@ Last-Update: 2018-07-09
  
      changed = true;
  
-@@ -998,7 +1266,7 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -998,7 +1266,7 @@
          memset(rpath, 'X', rpathSize);
      }
  
@@ -1224,7 +1224,7 @@ Last-Update: 2018-07-09
  
      if (!forceRPath && dynRPath && !dynRunPath) { /* convert DT_RPATH to DT_RUNPATH */
          dynRPath->d_tag = DT_RUNPATH;
-@@ -1018,7 +1286,7 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -1018,7 +1286,7 @@
      /* Grow the .dynstr section to make room for the new RPATH. */
      debug("rpath is too long, resizing...\n");
  
@@ -1233,7 +1233,7 @@ Last-Update: 2018-07-09
          rdi(shdrDynStr.sh_size) + newRPath.size() + 1);
      setSubstr(newDynStr, rdi(shdrDynStr.sh_size), newRPath + '\0');
  
-@@ -1031,7 +1299,7 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -1031,7 +1299,7 @@
      else {
          /* There is no DT_RUNPATH entry in the .dynamic section, so we
             have to grow the .dynamic section. */
@@ -1242,7 +1242,7 @@ Last-Update: 2018-07-09
              rdi(shdrDynamic.sh_size) + sizeof(Elf_Dyn));
  
          unsigned int idx = 0;
-@@ -1040,19 +1308,19 @@ void ElfFile<ElfFileParamNames>::modifyR
+@@ -1040,19 +1308,19 @@
  
          /* Shift all entries down by one. */
          setSubstr(newDynamic, sizeof(Elf_Dyn),
@@ -1265,7 +1265,7 @@ Last-Update: 2018-07-09
  {
      if (libs.empty()) return;
  
-@@ -1066,10 +1334,10 @@ void ElfFile<ElfFileParamNames>::removeN
+@@ -1066,10 +1334,10 @@
          if (rdi(dyn->d_tag) == DT_NEEDED) {
              char * name = strTab + rdi(dyn->d_un.d_val);
              if (libs.find(name) != libs.end()) {
@@ -1278,7 +1278,7 @@ Last-Update: 2018-07-09
                  *last++ = *dyn;
              }
          } else
-@@ -1079,96 +1347,309 @@ void ElfFile<ElfFileParamNames>::removeN
+@@ -1079,96 +1347,309 @@
      memset(last, 0, sizeof(Elf_Dyn) * (dyn - last));
  }
  
@@ -1627,7 +1627,7 @@ Last-Update: 2018-07-09
  {
      if (argc <= 1) {
          showHelp(argv[0]);
-@@ -1179,17 +1660,37 @@ int main(int argc, char * * argv)
+@@ -1179,17 +1660,37 @@
  
      int i;
      for (i = 1; i < argc; ++i) {
@@ -1666,7 +1666,7 @@ Last-Update: 2018-07-09
          else if (arg == "--set-rpath") {
              if (++i == argc) error("missing argument");
              setRPath = true;
-@@ -1212,28 +1713,54 @@ int main(int argc, char * * argv)
+@@ -1212,28 +1713,54 @@
                 added. */
              forceRPath = true;
          }
@@ -1756,7 +1756,7 @@ Last-Update: 2018-07-09
  /* Standard ELF types.  */
  
  #include <stdint.h>
-@@ -138,7 +140,8 @@ typedef struct
+@@ -138,7 +140,8 @@
  #define ELFOSABI_SYSV		0	/* Alias.  */
  #define ELFOSABI_HPUX		1	/* HP-UX */
  #define ELFOSABI_NETBSD		2	/* NetBSD.  */
@@ -1766,7 +1766,7 @@ Last-Update: 2018-07-09
  #define ELFOSABI_SOLARIS	6	/* Sun Solaris.  */
  #define ELFOSABI_AIX		7	/* IBM AIX.  */
  #define ELFOSABI_IRIX		8	/* SGI Irix.  */
-@@ -146,6 +149,7 @@ typedef struct
+@@ -146,6 +149,7 @@
  #define ELFOSABI_TRU64		10	/* Compaq TRU64 UNIX.  */
  #define ELFOSABI_MODESTO	11	/* Novell Modesto.  */
  #define ELFOSABI_OPENBSD	12	/* OpenBSD.  */
@@ -1774,7 +1774,7 @@ Last-Update: 2018-07-09
  #define ELFOSABI_ARM		97	/* ARM */
  #define ELFOSABI_STANDALONE	255	/* Standalone (embedded) application */
  
-@@ -245,7 +249,11 @@ typedef struct
+@@ -245,7 +249,11 @@
  #define EM_OPENRISC	92		/* OpenRISC 32-bit embedded processor */
  #define EM_ARC_A5	93		/* ARC Cores Tangent-A5 */
  #define EM_XTENSA	94		/* Tensilica Xtensa Architecture */
@@ -1787,7 +1787,7 @@ Last-Update: 2018-07-09
  
  /* If it is necessary to assign new unofficial EM_* values, please
     pick large random numbers (0x8523, 0xa7f2, etc.) to minimize the
-@@ -440,6 +448,7 @@ typedef struct
+@@ -440,6 +448,7 @@
  #define STB_WEAK	2		/* Weak symbol */
  #define	STB_NUM		3		/* Number of defined types.  */
  #define STB_LOOS	10		/* Start of OS-specific */
@@ -1795,7 +1795,7 @@ Last-Update: 2018-07-09
  #define STB_HIOS	12		/* End of OS-specific */
  #define STB_LOPROC	13		/* Start of processor-specific */
  #define STB_HIPROC	15		/* End of processor-specific */
-@@ -455,6 +464,7 @@ typedef struct
+@@ -455,6 +464,7 @@
  #define STT_TLS		6		/* Symbol is thread-local data object*/
  #define	STT_NUM		7		/* Number of defined types.  */
  #define STT_LOOS	10		/* Start of OS-specific */
@@ -1803,7 +1803,7 @@ Last-Update: 2018-07-09
  #define STT_HIOS	12		/* End of OS-specific */
  #define STT_LOPROC	13		/* Start of processor-specific */
  #define STT_HIPROC	15		/* End of processor-specific */
-@@ -552,6 +562,12 @@ typedef struct
+@@ -552,6 +562,12 @@
    Elf64_Xword	p_align;		/* Segment alignment */
  } Elf64_Phdr;
  
@@ -1816,7 +1816,7 @@ Last-Update: 2018-07-09
  /* Legal values for p_type (segment type).  */
  
  #define	PT_NULL		0		/* Program header table entry unused */
-@@ -601,10 +617,30 @@ typedef struct
+@@ -601,10 +617,30 @@
  #define NT_LWPSTATUS	16		/* Contains copy of lwpstatus struct */
  #define NT_LWPSINFO	17		/* Contains copy of lwpinfo struct */
  #define NT_PRFPXREG	20		/* Contains copy of fprxregset struct */
@@ -1847,7 +1847,7 @@ Last-Update: 2018-07-09
  
  /* Legal values for the note segment descriptor types for object files.  */
  
-@@ -768,6 +804,15 @@ typedef struct
+@@ -768,6 +804,15 @@
  #define DF_1_ENDFILTEE	0x00004000	/* Filtee terminates filters search. */
  #define	DF_1_DISPRELDNE	0x00008000	/* Disp reloc applied at build time. */
  #define	DF_1_DISPRELPND	0x00010000	/* Disp reloc applied at run-time.  */
@@ -1863,7 +1863,7 @@ Last-Update: 2018-07-09
  
  /* Flags for the feature selection in DT_FEATURE_1.  */
  #define DTF_1_PARINIT	0x00000001
-@@ -927,59 +972,7 @@ typedef struct
+@@ -927,59 +972,7 @@
      } a_un;
  } Elf64_auxv_t;
  
@@ -1924,7 +1924,7 @@ Last-Update: 2018-07-09
  /* Note section contents.  Each entry in the note section begins with
     a header of a fixed form.  */
  
-@@ -1042,6 +1035,9 @@ typedef struct
+@@ -1042,6 +1035,9 @@
     The descriptor consists of any nonzero number of bytes.  */
  #define NT_GNU_BUILD_ID	3
  
@@ -1934,7 +1934,7 @@ Last-Update: 2018-07-09
  
  /* Move records.  */
  typedef struct
-@@ -1102,8 +1098,29 @@ typedef struct
+@@ -1102,8 +1098,29 @@
  #define R_68K_GLOB_DAT	20		/* Create GOT entry */
  #define R_68K_JMP_SLOT	21		/* Create PLT entry */
  #define R_68K_RELATIVE	22		/* Adjust by program base */
@@ -1965,7 +1965,7 @@ Last-Update: 2018-07-09
  
  /* Intel 80386 specific definitions.  */
  
-@@ -1157,7 +1174,7 @@ typedef struct
+@@ -1157,7 +1174,7 @@
  #define R_386_TLS_DTPMOD32 35		/* ID of module containing symbol */
  #define R_386_TLS_DTPOFF32 36		/* Offset in TLS block */
  #define R_386_TLS_TPOFF32  37		/* Negated offset in static TLS block */
@@ -1974,7 +1974,7 @@ Last-Update: 2018-07-09
  #define R_386_TLS_GOTDESC  39		/* GOT offset for TLS descriptor.  */
  #define R_386_TLS_DESC_CALL 40		/* Marker of call through TLS
  					   descriptor for
-@@ -1166,8 +1183,9 @@ typedef struct
+@@ -1166,8 +1183,9 @@
  					   pointer to code and to
  					   argument, returning the TLS
  					   offset for the symbol.  */
@@ -1985,7 +1985,7 @@ Last-Update: 2018-07-09
  
  /* SUN SPARC specific definitions.  */
  
-@@ -1235,6 +1253,7 @@ typedef struct
+@@ -1235,6 +1253,7 @@
  #define R_SPARC_PC_LM22		39	/* Low miggle 22 bits of ... */
  #define R_SPARC_WDISP16		40	/* PC relative 16 bit shifted */
  #define R_SPARC_WDISP19		41	/* PC relative 19 bit shifted */
@@ -1993,7 +1993,7 @@ Last-Update: 2018-07-09
  #define R_SPARC_7		43	/* Direct 7 bit */
  #define R_SPARC_5		44	/* Direct 5 bit */
  #define R_SPARC_6		45	/* Direct 6 bit */
-@@ -1272,118 +1291,124 @@ typedef struct
+@@ -1272,118 +1291,124 @@
  #define R_SPARC_TLS_DTPOFF64	77
  #define R_SPARC_TLS_TPOFF32	78
  #define R_SPARC_TLS_TPOFF64	79
@@ -2209,7 +2209,7 @@ Last-Update: 2018-07-09
  
  
  /* Symbol tables.  */
-@@ -1405,23 +1430,23 @@ typedef union
+@@ -1405,23 +1430,23 @@
  {
    struct
      {
@@ -2242,7 +2242,7 @@ Last-Update: 2018-07-09
  } Elf32_RegInfo;
  
  /* Entries found in sections of type SHT_MIPS_OPTIONS.  */
-@@ -2013,9 +2038,6 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2013,9 +2038,6 @@
  #define R_PPC_GOT_DTPREL16_HI	93 /* half16*	(sym+add)@got@dtprel@h */
  #define R_PPC_GOT_DTPREL16_HA	94 /* half16*	(sym+add)@got@dtprel@ha */
  
@@ -2252,7 +2252,7 @@ Last-Update: 2018-07-09
  /* The remaining relocs are from the Embedded ELF ABI, and are not
     in the SVR4 ELF ABI.  */
  #define R_PPC_EMB_NADDR32	101
-@@ -2043,11 +2065,14 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2043,11 +2065,14 @@
  #define R_PPC_DIAB_RELSDA_HI	184	/* like EMB_RELSDA, but high 16 bit */
  #define R_PPC_DIAB_RELSDA_HA	185	/* like EMB_RELSDA, adjusted high 16 */
  
@@ -2271,7 +2271,7 @@ Last-Update: 2018-07-09
  
  /* This is a phony reloc to handle any old fashioned TOC16 references
     that may still be in object files.  */
-@@ -2168,76 +2193,261 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2168,76 +2193,261 @@
  #define R_PPC64_DTPREL16_HIGHERA 104 /* half16	(sym+add)@dtprel@highera */
  #define R_PPC64_DTPREL16_HIGHEST 105 /* half16	(sym+add)@dtprel@highest */
  #define R_PPC64_DTPREL16_HIGHESTA 106 /* half16	(sym+add)@dtprel@highesta */
@@ -2567,7 +2567,7 @@ Last-Update: 2018-07-09
  #define R_ARM_TLS_DTPMOD32	17	/* ID of module containing symbol */
  #define R_ARM_TLS_DTPOFF32	18	/* Offset in TLS block */
  #define R_ARM_TLS_TPOFF32	19	/* Offset in static TLS block */
-@@ -2248,17 +2458,109 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2248,17 +2458,109 @@
  #define R_ARM_GOTOFF		24	/* 32 bit offset to GOT */
  #define R_ARM_GOTPC		25	/* 32 bit PC relative offset to GOT */
  #define R_ARM_GOT32		26	/* 32 bit GOT entry */
@@ -2686,7 +2686,7 @@ Last-Update: 2018-07-09
  #define R_ARM_TLS_GD32		104	/* PC-rel 32 bit for global dynamic
  					   thread local data */
  #define R_ARM_TLS_LDM32		105	/* PC-rel 32 bit for local dynamic
-@@ -2269,6 +2571,19 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2269,6 +2571,19 @@
  					   static TLS block offset */
  #define R_ARM_TLS_LE32		108	/* 32 bit offset relative to static
  					   TLS block */
@@ -2706,7 +2706,7 @@ Last-Update: 2018-07-09
  #define R_ARM_RXPC25		249
  #define R_ARM_RSBREL32		250
  #define R_ARM_THM_RPC22		251
-@@ -2393,6 +2708,30 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2393,6 +2708,30 @@
  
  /* SH specific declarations */
  
@@ -2737,7 +2737,7 @@ Last-Update: 2018-07-09
  /* SH relocs.  */
  #define	R_SH_NONE		0
  #define	R_SH_DIR32		1
-@@ -2434,6 +2773,12 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2434,6 +2773,12 @@
  /* Keep this the last entry.  */
  #define	R_SH_NUM		256
  
@@ -2750,7 +2750,7 @@ Last-Update: 2018-07-09
  /* Additional s390 relocs */
  
  #define R_390_NONE		0	/* No reloc.  */
-@@ -2515,8 +2860,9 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2515,8 +2860,9 @@
  #define R_390_GOTPLT20		59	/* 20 bit offset to jump slot.  */
  #define R_390_TLS_GOTIE20	60	/* 20 bit GOT offset for static TLS
  					   block offset.  */
@@ -2761,7 +2761,7 @@ Last-Update: 2018-07-09
  
  
  /* CRIS relocations.  */
-@@ -2577,13 +2923,23 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2577,13 +2923,23 @@
  #define R_X86_64_GOTOFF64	25	/* 64 bit offset to GOT */
  #define R_X86_64_GOTPC32	26	/* 32 bit signed pc relative
  					   offset to GOT */
@@ -2787,7 +2787,7 @@ Last-Update: 2018-07-09
  
  
  /* AM33 relocations.  */
-@@ -2611,8 +2967,23 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2611,8 +2967,23 @@
  #define R_MN10300_GLOB_DAT	21	/* Create GOT entry.  */
  #define R_MN10300_JMP_SLOT	22	/* Create PLT entry.  */
  #define R_MN10300_RELATIVE	23	/* Adjust by program base.  */
@@ -2813,7 +2813,7 @@ Last-Update: 2018-07-09
  
  
  /* M32R relocs.  */
-@@ -2670,5 +3041,264 @@ typedef Elf32_Addr Elf32_Conflict;
+@@ -2670,5 +3041,264 @@
  #define R_M32R_GOTOFF_LO	64	/* Low 16 bit offset to GOT */
  #define R_M32R_NUM		256	/* Keep this the last entry. */
  
@@ -3080,7 +3080,7 @@ Last-Update: 2018-07-09
  #endif	/* elf.h */
 --- a/build_scripts/main.py
 +++ b/build_scripts/main.py
-@@ -894,8 +894,14 @@ class PysideBuild(_build):
+@@ -874,8 +874,14 @@
              return
          log.info("Building patchelf...")
          module_src_dir = os.path.join(self.sources_dir, "patchelf")
