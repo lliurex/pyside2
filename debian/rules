@@ -28,6 +28,8 @@ export PYBUILD_DISABLE_python3.7=test
 
 override_dh_auto_build:
 	dh_auto_build
+	mkdir pyside_package
+	cp -R .pybuild/cpy*/build/shiboken2/docs/shiboken2 pyside_package
 	PYTHONPATH=. http_proxy='127.0.0.1:9' sphinx-build -N -bhtml docs/ build/html # HTML generator
 
 override_dh_auto_install:
