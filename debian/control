@@ -211,7 +211,7 @@ Description: Creates the Pyside2 bindings source files for Qt5
 
 Package: python-shiboken2
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${python:Depends}, ${shlibs:Depends}
 Description: Creates the Pyside2 bindings source files for Qt5
  The Shiboken Generatos (A.K.A shiboken) is the plugin that creates the
  PySide2 bindings source files from Qt5 headers and auxiliary files
