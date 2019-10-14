@@ -201,6 +201,22 @@ Description: CPython bindings generator for C++ libraries (common documentation)
  .
  This package contains the common documentation.
 
+Package: python3-shiboken2
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}, ${shlibs:Depends}
+Description: Creates the Pyside2 bindings source files for Qt5
+ The Shiboken Generatos (A.K.A shiboken) is the plugin that creates the
+ PySide2 bindings source files from Qt5 headers and auxiliary files
+ (typesystems, global.h and glue files).
+
+Package: python-shiboken2
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}, ${shlibs:Depends}
+Description: Creates the Pyside2 bindings source files for Qt5
+ The Shiboken Generatos (A.K.A shiboken) is the plugin that creates the
+ PySide2 bindings source files from Qt5 headers and auxiliary files
+ (typesystems, global.h and glue files).
+ 
 Package: pyside2-tools
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, python-pyside2uic, ${python:Depends}
