@@ -1,3 +1,9 @@
+pyside2 (5.13.1-2) bionic; urgency=medium
+
+  * Add missing packages
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 14 Oct 2019 17:19:18 +0200
+
 pyside2 (5.13.1-1) bionic; urgency=medium
 
   * Change version
