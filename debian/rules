@@ -54,7 +54,7 @@ override_dh_install-arch:
 	# during the build the path is setup to the build dir
 	# /build/pyside2* (required to find lib during the build) but it's
 	# not what we need
-	debian/set-paths
+	dpkg-architecture -c debian/set-paths
 
 override_dh_auto_test:
 	xvfb-run python3 testrunner.py test

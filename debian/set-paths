@@ -14,7 +14,7 @@ for directory in "cmake/Shiboken2-$MAIN_VERSION_UPSTREAM" "pkgconfig"; do
         sed -i "s|\${_IMPORT_PREFIX}/include|\${_IMPORT_PREFIX}/../include|" \
 	    debian/$package/usr/lib/$DEB_HOST_MULTIARCH/$directory/*;
         sed -i "s|libshiboken2.*\.so|libshiboken2\${PYTHON_CONFIG_SUFFIX}.so|" \
-	    debian/$package/usr/lib/$DEB_HOST_MULTIARCH/$directory/Shiboken2Targets-*.cmake;
+	    debian/$package/usr/lib/$DEB_HOST_MULTIARCH/$directory/Shiboken2Targets*.cmake;
 done
 
 package="libpyside2-dev"
@@ -40,3 +40,16 @@ sed -i "s|^set_and_check(PYSIDE_PYTHONPATH.*|set_and_check(PYSIDE_PYTHONPATH \"/
 # Set correctly the python path for shiboken2 (Python3)
 sed -i "s|^set_and_check(SHIBOKEN_PYTHON_MODULE_DIR.*|set_and_check(SHIBOKEN_PYTHON_MODULE_DIR \"/usr/lib/python3/dist-packages/shiboken2\")|" \
     debian/libshiboken2-dev/usr/lib/$DEB_HOST_MULTIARCH/cmake/Shiboken2-$MAIN_VERSION_UPSTREAM/Shiboken2Config.cpython-3*-$DEB_HOST_MULTIARCH.cmake
+
+# Change install paths for cmake
+install_path=$(egrep '^prefix' debian/libpyside2-dev/usr/lib/$DEB_HOST_MULTIARCH/pkgconfig/pyside2.pc |cut -d'=' -f2|sed -r 's@(\S+)/usr@\1@')
+echo "Removing '$install_path'"
+if [ -n "${install_path}" ]; then
+    for f in "debian/libpyside2-dev/usr/lib/$DEB_HOST_MULTIARCH/pkgconfig/pyside2.pc" "debian/libshiboken2-dev/usr/lib/$DEB_HOST_MULTIARCH/pkgconfig/shiboken2.pc" "debian/libshiboken2-dev/usr/lib/$DEB_HOST_MULTIARCH/cmake/Shiboken2-$MAIN_VERSION_UPSTREAM/Shiboken2Targets-relwithdebinfo.cmake"; do
+        if [ -f "$f" ]; then
+            sed -i "s@${install_path}@@g" ${f} 
+        fi
+    done
+fi
+
+
