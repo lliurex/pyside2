@@ -57,7 +57,8 @@ Build-Depends: chrpath,
                xauth,
                xvfb,
                qtquickcontrols2-5-dev (>= 5.14),
-               qtspeech5-speechd-plugin (>= 5.14)
+               qtspeech5-speechd-plugin (>= 5.14),
+               qt5-default (>= 5.14)
 Rules-Requires-Root: no
 Standards-Version: 4.5.0
 Homepage: https://wiki.qt.io/Qt_for_Python
